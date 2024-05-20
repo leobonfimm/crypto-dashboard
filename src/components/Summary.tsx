@@ -13,7 +13,7 @@ export function Summary() {
         firstPrice={firstPrice[0] ? firstPrice[0] : 0}
       />
       <SummaryCard
-        coin="etc"
+        coin="eth"
         price={price[1] ? price[1] : 0}
         firstPrice={firstPrice[1] ? firstPrice[1] : 0}
       />

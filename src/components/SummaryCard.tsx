@@ -1,9 +1,10 @@
 import { PiChartLineDown, PiChartLineUpLight } from 'react-icons/pi'
 import { SiBitcoin, SiDogecoin, SiEthereum, SiSolana } from 'react-icons/si'
+import { CryptoType } from '../store/slices/binance'
 import { priceFormatter } from '../utils/formatter'
 
 interface SummaryCardProps {
-  coin: 'btc' | 'etc' | 'sol' | 'doge'
+  coin: CryptoType
   price: number
   firstPrice: number
 }
@@ -23,12 +24,14 @@ export function SummaryCard({ coin, price, firstPrice }: SummaryCardProps) {
               <SiBitcoin size={32} className="text-yellow-200" />
             </>
           )}
-          {coin === 'etc' && (
+
+          {coin === 'eth' && (
             <>
               <span>Ethereum (ETH)</span>
               <SiEthereum size={32} className="text-blue-300" />
             </>
           )}
+
           {coin === 'sol' && (
             <>
               <span>Solana (SOL)</span>

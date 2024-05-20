@@ -2,7 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { api } from '../../lib/axios'
 import { dateFormatter } from '../../utils/formatter'
 
-type SymbolsType = 'BTCUSDT' | 'ETHUSDT' | 'SOLUSDT' | 'DOGEUSDT'
+export type CryptoType = 'btc' | 'eth' | 'sol' | 'doge'
+export type SymbolsType = 'BTCUSDT' | 'ETHUSDT' | 'SOLUSDT' | 'DOGEUSDT'
 const symbols: SymbolsType[] = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'DOGEUSDT']
 
 interface ChartData {
@@ -18,13 +19,15 @@ interface BinanceState {
   firstPrice: Array<number | null>
   chartData: ChartData[]
   isFetchingChartData: boolean
+  isConnectionEstablished: boolean
 }
 
 const initialState: BinanceState = {
-  price: [null, null, null, null],
-  firstPrice: [null, null, null, null],
+  price: new Array(4).fill(null),
+  firstPrice: new Array(4).fill(null),
   chartData: [],
   isFetchingChartData: false,
+  isConnectionEstablished: false,
 }
 
 export const loadChartData = createAsyncThunk('load', async () => {
@@ -59,7 +62,15 @@ export const binanceSlice = createSlice({
   name: 'binance',
   initialState,
   reducers: {
-    setPrice(state, action: PayloadAction<{ symbol: string; price: number }>) {
+    setPrice(
+      state,
+      action: PayloadAction<{
+        symbol: CryptoType
+        price: number
+      }>,
+    ) {
+      if (!state.isConnectionEstablished) return
+
       const symbol = action.payload.symbol
       const price = action.payload.price
       switch (symbol) {
@@ -81,6 +92,10 @@ export const binanceSlice = createSlice({
           break
       }
     },
+
+    setIsConnectionEstablished(state, action: PayloadAction<boolean>) {
+      state.isConnectionEstablished = action.payload
+    },
   },
   extraReducers(builder) {
     builder.addCase(loadChartData.pending, (state) => {
@@ -95,4 +110,4 @@ export const binanceSlice = createSlice({
 })
 
 export const binance = binanceSlice.reducer
-export const { setPrice } = binanceSlice.actions
+export const { setPrice, setIsConnectionEstablished } = binanceSlice.actions
