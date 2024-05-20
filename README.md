@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
+# Cryptocurrency Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<img src="./src/assets/dashboard.png" />
 
-Currently, two official plugins are available:
+## About
+This project is a dashboard that updates the prices of Bitcoin, Ethereum, Solana, and Dogecoin in real-time and calculates the price variation from the first price received from Binance. It also displays a chart showing the price evolution of each cryptocurrency.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A WebSocket is used for real-time price updates, and the Binance API is called to fetch data for the charts. Redux is used for state management in the application.
 
-## Expanding the ESLint configuration
+## How to Run Locally
+After cloning the project, navigate to the project directory and install the project dependencies using your package manager.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+|||
+|---|---|
+| pnpm | `pnpm install`|
+| yarn | `yarn install`|
+| npm | `npm install`|
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Create an environment variables file named .env.local and add the following environment variables:
+```
+VITE_BINANCE_WEB_SOCKET_BASE_URL=wss://stream.binance.com:9443
+VITE_BINANCE_API_BASE_URL=https://api.binance.com/api/v3
+VITE_RECONNECT_INTERVAL=5000
+VITE_MAX_RECONNECT_ATTEMPTS=3
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+With the environment variables set and the packages installed, simply run the following command:
+|||
+|---|---|
+| pnpm | `pnpm dev`|
+| yarn | `yarn dev`|
+| npm | `npm run dev`|

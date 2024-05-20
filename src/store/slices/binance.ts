@@ -14,7 +14,7 @@ interface ChartData {
   }>
 }
 
-interface BinanceState {
+export interface BinanceState {
   price: Array<number | null>
   firstPrice: Array<number | null>
   chartData: ChartData[]

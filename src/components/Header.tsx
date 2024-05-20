@@ -8,7 +8,7 @@ export function Header() {
 
   return (
     <div className="w-full bg-zinc-950 px-0 pt-10 pb-28">
-      <div className="flex justify-end w-full max-w-screen-2xl mx-auto">
+      <div className="flex justify-end w-full pr-3 max-w-screen-2xl mx-auto sm:px-0">
         {isConnectionEstablished ? (
           <PiWifiHighBold size={35} className="text-lime-700" />
         ) : (
